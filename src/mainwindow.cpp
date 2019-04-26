@@ -15,6 +15,7 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QLocalSocket>
+#include <cstdlib>
 
 MainWindow::MainWindow(ConfigHelper *confHelper, QWidget *parent) :
     QMainWindow(parent),
@@ -22,6 +23,7 @@ MainWindow::MainWindow(ConfigHelper *confHelper, QWidget *parent) :
     configHelper(confHelper),
     instanceRunning(false)
 {
+    system("/etc/ssqt5-hook.sh start");
     Q_ASSERT(configHelper);
 
     initSingleInstance();
@@ -150,6 +152,7 @@ MainWindow::~MainWindow()
     // delete ui after everything in case it's deleted while still needed for
     // the functions written above
     delete ui;
+    system("/etc/ssqt5-hook.sh stop");
 }
 
 const QUrl MainWindow::issueUrl =
