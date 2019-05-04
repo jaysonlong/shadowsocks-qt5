@@ -1,6 +1,7 @@
 #include "statusnotifier.h"
 #include "mainwindow.h"
 #include <QApplication>
+#include <cstdlib>
 #ifdef Q_OS_LINUX
 #include <QDBusMessage>
 #include <QDBusConnection>
@@ -21,6 +22,10 @@ StatusNotifier::StatusNotifier(MainWindow *w, bool startHiden, QObject *parent) 
     minimiseRestoreAction = new QAction(startHiden ? tr("Restore") : tr("Minimise"), this);
     connect(minimiseRestoreAction, &QAction::triggered, this, &StatusNotifier::activate);
     systrayMenu.addAction(minimiseRestoreAction);
+    globalProxyAction = new QAction(tr("GlobalProxy"), this);
+    globalProxyAction->setCheckable(true);
+    connect(globalProxyAction, &QAction::triggered, this, &StatusNotifier::globalProxy);
+    systrayMenu.addAction(globalProxyAction);
     systrayMenu.addAction(QIcon::fromTheme("application-exit", QIcon::fromTheme("exit")), tr("Quit"), qApp, SLOT(quit()));
     systray.setContextMenu(&systrayMenu);
     systray.show();
@@ -34,6 +39,15 @@ void StatusNotifier::activate()
         window->raise();
     } else {
         window->hide();
+    }
+}
+
+void StatusNotifier::globalProxy()
+{
+    if (globalProxyAction->isChecked()) {
+        system("/etc/ssqt5-hook.sh globalProxy");
+    } else {
+        system("/etc/ssqt5-hook.sh autoProxy");
     }
 }
 

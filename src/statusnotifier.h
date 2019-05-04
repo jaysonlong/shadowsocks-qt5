@@ -33,12 +33,14 @@ public:
 
 public slots:
     void activate();
+    void globalProxy();
     void showNotification(const QString &);
     void onWindowVisibleChanged(bool visible);
 
 private:
     QMenu systrayMenu;
     QAction *minimiseRestoreAction;
+    QAction *globalProxyAction;
     QSystemTrayIcon systray;
     MainWindow *window;
 };

@@ -642,7 +642,7 @@
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="../statusnotifier.cpp" line="24"/>
+        <location filename="../statusnotifier.cpp" line="28"/>
         <source>Quit</source>
         <translation>結束</translation>
     </message>
@@ -651,6 +651,11 @@
         <location filename="../statusnotifier.cpp" line="131"/>
         <source>Restore</source>
         <translation>還原</translation>
+    </message>
+    <message>
+        <location filename="../statusnotifier.cpp" line="24"/>
+        <source>GlobalProxy</source>
+        <translation>全局模式</translation>
     </message>
 </context>
 <context>
